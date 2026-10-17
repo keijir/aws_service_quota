@@ -1,0 +1,667 @@
+{
+ "schemaVersion": 1,
+ "note": "公式ドキュメントで個別に確認した情報。annotates は quotas.json のQuotaへの補足 (確認時の値・公開上限・適用範囲)。annotates がないものは General Reference の表に無いQuota (各サービスのガイドで確認)。",
+ "entries": [
+  {
+   "id": "curated/sts.rps",
+   "serviceId": "sts",
+   "service": "STS",
+   "name": "STSリクエスト/秒 (AssumeRole, GetCallerIdentity 等の合算)",
+   "value": 600,
+   "unit": "req/s",
+   "adjustable": null,
+   "adjustableNote": "サポートへの相談で引き上げ可能 (Service Quotasでは申請不可)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "note": "AWSサービスプリンシパルによるSTS要求（ECSタスクロールの認証情報払い出し等）はこのQuotaを消費しない。クロスアカウントAssumeRoleは呼び出し元アカウントのみ消費。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/iam.roles",
+   "annotates": "iam-service/L-FE177D64",
+   "verifiedValue": 1000,
+   "nameJa": "IAM Role数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "scope": "アカウント",
+   "maxPublished": {
+    "value": 10000,
+    "unit": "個"
+   }
+  },
+  {
+   "id": "curated/iam.instanceProfiles",
+   "annotates": "iam-service/L-6E65F664",
+   "verifiedValue": 1000,
+   "nameJa": "インスタンスプロファイル数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "scope": "アカウント",
+   "maxPublished": {
+    "value": 10000,
+    "unit": "個"
+   }
+  },
+  {
+   "id": "curated/iam.managedPolicies",
+   "annotates": "iam-service/L-E95E4862",
+   "verifiedValue": 1500,
+   "nameJa": "カスタマー管理ポリシー数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "scope": "アカウント",
+   "maxPublished": {
+    "value": 10000,
+    "unit": "個"
+   }
+  },
+  {
+   "id": "curated/iam.trustPolicyLength",
+   "annotates": "iam-service/L-C07B4B0D",
+   "verifiedValue": 2048,
+   "nameJa": "Role信頼ポリシー長",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "scope": "Role",
+   "maxPublished": {
+    "value": 8192,
+    "unit": "文字"
+   }
+  },
+  {
+   "id": "curated/iam.inlineRolePolicy",
+   "serviceId": "iam-service",
+   "service": "IAM",
+   "name": "Roleインラインポリシー合計サイズ",
+   "value": 10240,
+   "unit": "文字",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "scope": "Role"
+  },
+  {
+   "id": "curated/iam.sessionPolicy",
+   "serviceId": "sts",
+   "service": "STS",
+   "name": "セッションポリシー (JSON+ARN合計)",
+   "value": 2048,
+   "unit": "文字",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "scope": "AssumeRole呼び出し"
+  },
+  {
+   "id": "curated/iam.sessionTags",
+   "serviceId": "sts",
+   "service": "STS",
+   "name": "セッションタグ数",
+   "value": 50,
+   "unit": "個",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
+   "scope": "AssumeRole呼び出し"
+  },
+  {
+   "id": "curated/fargate.burst",
+   "annotates": "ecs-service/L-6BAD92DD",
+   "verifiedValue": 100,
+   "nameJa": "Fargate On-Demand タスク起動バースト",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/throttling.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/fargate.sustained",
+   "annotates": "ecs-service/L-551A4E9D",
+   "verifiedValue": 20,
+   "nameJa": "Fargate On-Demand タスク起動持続レート",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/throttling.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/ecs.runTaskRps",
+   "serviceId": "ecs-service",
+   "service": "ECS",
+   "name": "RunTask API (Fargate)",
+   "value": 20,
+   "unit": "call/s",
+   "adjustable": true,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/throttling.html",
+   "note": "1回のRunTaskで最大10タスク。Step FunctionsのECS統合は1呼び出しで1タスク起動として扱う。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/fargate.vcpu",
+   "annotates": "ecs-service/L-3032A538",
+   "verifiedValue": 6,
+   "nameJa": "Fargate On-Demand vCPU 同時実行数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/general/latest/gr/ecs-service.html",
+   "note": "ドキュメント記載のデフォルトは6。実アカウントの適用値はService Quotasコンソールで確認が必要。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/ecs.tasksPerService",
+   "annotates": "ecs-service/tasks-per-service",
+   "verifiedValue": 5000,
+   "nameJa": "サービスあたりタスク数 (desired count)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/general/latest/gr/ecs-service.html",
+   "scope": "サービス"
+  },
+  {
+   "id": "curated/ecs.serviceLaunchRate",
+   "annotates": "ecs-service/rate-of-tasks-launched-by-a-service-on-aws-fargate",
+   "verifiedValue": 500,
+   "nameJa": "サービスによるFargateタスク起動レート",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/general/latest/gr/ecs-service.html",
+   "scope": "サービス"
+  },
+  {
+   "id": "curated/sqs.fifoTps",
+   "annotates": "sqs-service/unbatched-message-throughput-for-fifo-queues",
+   "verifiedValue": 300,
+   "nameJa": "FIFO 非高スループットモード (パーティションあたり/API)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html",
+   "note": "バッチ利用時は3,000 msg/s。",
+   "scope": "パーティション×APIアクション"
+  },
+  {
+   "id": "curated/sqs.fifoHtTps",
+   "serviceId": "sqs-service",
+   "service": "SQS",
+   "name": "FIFO 高スループットモード (東京, 非バッチ)",
+   "value": 9000,
+   "unit": "TPS",
+   "adjustable": null,
+   "adjustableNote": "サポートへの相談で引き上げ可能 (Service Quotasでは申請不可)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html",
+   "note": "バッチ利用時は最大10倍。メッセージグループの分布に依存。",
+   "scope": "キュー×APIアクション"
+  },
+  {
+   "id": "curated/sqs.inflight",
+   "annotates": "sqs-service/in-flight-messages-per-standard-queue",
+   "verifiedValue": 120000,
+   "nameJa": "インフライトメッセージ数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-queues.html",
+   "scope": "キュー"
+  },
+  {
+   "id": "curated/sfn.startExecution",
+   "annotates": "step-functions/L-1B55A735",
+   "verifiedValue": 150,
+   "nameJa": "StartExecution 持続レート (Standard, 東京)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/step-functions/latest/dg/service-quotas.html",
+   "note": "バケットサイズ800。Expressは6,000/s。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/sfn.stateTransition",
+   "annotates": "step-functions/L-AD9B4E93",
+   "verifiedValue": 800,
+   "nameJa": "状態遷移 持続レート (Standard, 東京)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/step-functions/latest/dg/service-quotas.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/sfn.openExecutions",
+   "annotates": "step-functions/L-B8A5B662",
+   "verifiedValue": 1000000,
+   "nameJa": "オープン実行数 (Standard)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/step-functions/latest/dg/service-quotas.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/pipes.concurrency",
+   "annotates": "ev_pipes/concurrent-pipe-executions-per-account",
+   "verifiedValue": 1000,
+   "nameJa": "同時パイプ実行数 (東京)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/scheduler.invocations",
+   "annotates": "eventbridgescheduler/L-F6D2596E",
+   "verifiedValue": 1000,
+   "nameJa": "呼び出しスロットル (東京)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/scheduler/latest/UserGuide/scheduler-quotas.html",
+   "note": "超過分は破棄されず遅延する。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/scheduler.schedules",
+   "annotates": "eventbridgescheduler/L-EE5D6FF0",
+   "verifiedValue": 10000000,
+   "nameJa": "スケジュール数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/scheduler/latest/UserGuide/scheduler-quotas.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/nat.connPerDest",
+   "serviceId": "vpc-service",
+   "service": "NAT Gateway",
+   "name": "同時接続数 (一意の宛先IP:ポート:プロトコルあたり, IPあたり)",
+   "value": 55000,
+   "unit": "接続",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-basics.html",
+   "note": "IPv4アドレスを最大8個関連付けて拡張可能。",
+   "scope": "NAT GatewayのIPv4アドレス×宛先"
+  },
+  {
+   "id": "curated/nat.bandwidthGbps",
+   "serviceId": "vpc-service",
+   "service": "NAT Gateway",
+   "name": "帯域 (自動スケール上限)",
+   "value": 100,
+   "unit": "Gbps",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-basics.html",
+   "note": "5Gbpsから自動スケール。",
+   "scope": "NAT Gateway"
+  },
+  {
+   "id": "curated/s3.getPerPrefix",
+   "serviceId": "s3",
+   "service": "S3",
+   "name": "GET/HEAD (パーティション化プレフィックスあたり)",
+   "value": 5500,
+   "unit": "req/s",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html",
+   "note": "「少なくとも」達成できる目安であり保証上限ではない。スケールは段階的。",
+   "scope": "プレフィックス",
+   "guideline": true
+  },
+  {
+   "id": "curated/s3.putPerPrefix",
+   "serviceId": "s3",
+   "service": "S3",
+   "name": "PUT/COPY/POST/DELETE (パーティション化プレフィックスあたり)",
+   "value": 3500,
+   "unit": "req/s",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html",
+   "scope": "プレフィックス",
+   "guideline": true
+  },
+  {
+   "id": "curated/vpn.connections",
+   "annotates": "vpn/L-3E6EC3A3",
+   "verifiedValue": 50,
+   "nameJa": "VPN接続数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-limits.html",
+   "note": "仮想プライベートゲートウェイあたりは10接続。",
+   "scope": "リージョン"
+  },
+  {
+   "id": "curated/secrets.count",
+   "annotates": "asm/secrets",
+   "verifiedValue": 500000,
+   "nameJa": "シークレット数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html",
+   "scope": "リージョン"
+  },
+  {
+   "id": "curated/secrets.getRps",
+   "annotates": "asm/rate-of-getsecretvalue-api-requests",
+   "verifiedValue": 10000,
+   "nameJa": "GetSecretValue",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html",
+   "scope": "リージョン"
+  },
+  {
+   "id": "curated/transfer.usersPerServer",
+   "annotates": "transfer-service/L-101C3D29",
+   "verifiedValue": 10000,
+   "nameJa": "サービスマネージドユーザー数/サーバー",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/general/latest/gr/transfer-service.html",
+   "scope": "サーバー"
+  },
+  {
+   "id": "curated/transfer.sessionsPerServer",
+   "annotates": "transfer-service/concurrent-sessions-per-server",
+   "verifiedValue": 10000,
+   "nameJa": "同時セッション数/サーバー",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/general/latest/gr/transfer-service.html",
+   "scope": "サーバー"
+  },
+  {
+   "id": "curated/ddb.tableWru",
+   "annotates": "ddb/L-AB614373",
+   "verifiedValue": 40000,
+   "nameJa": "テーブルあたり書き込み (オンデマンド)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html",
+   "scope": "テーブル"
+  },
+  {
+   "id": "curated/lambda.concurrency",
+   "annotates": "lambda-service/L-B99A9384",
+   "verifiedValue": 1000,
+   "nameJa": "同時実行数",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/lambda.memory",
+   "serviceId": "lambda-service",
+   "service": "Lambda",
+   "name": "関数メモリ上限",
+   "value": 10240,
+   "unit": "MB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
+   "note": "128〜10,240MB。1,769MBで1vCPU相当。",
+   "scope": "関数"
+  },
+  {
+   "id": "curated/lambda.timeout",
+   "annotates": "lambda-service/function-timeout",
+   "verifiedValue": 900,
+   "nameJa": "関数タイムアウト上限",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
+   "scope": "関数"
+  },
+  {
+   "id": "curated/lambda.payloadSync",
+   "serviceId": "lambda-service",
+   "service": "Lambda",
+   "name": "同期呼び出しペイロード (要求・応答それぞれ)",
+   "value": 6144,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
+   "scope": "呼び出し"
+  },
+  {
+   "id": "curated/lambda.payloadAsync",
+   "annotates": "lambda-service/asynchronous-payload",
+   "verifiedValue": 1024,
+   "nameJa": "非同期呼び出しペイロード",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
+   "scope": "呼び出し"
+  },
+  {
+   "id": "curated/lambda.scaleRate",
+   "annotates": "lambda-service/concurrency-scaling-rate",
+   "verifiedValue": 1000,
+   "nameJa": "同時実行のスケール速度 (関数ごと)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/lambda/latest/dg/scaling-behavior.html",
+   "note": "10秒ごとに最大1,000実行環境 (10,000 req/s) まで増加。",
+   "scope": "関数"
+  },
+  {
+   "id": "curated/apigw.rps",
+   "annotates": "apigateway/L-8A5B8E43",
+   "verifiedValue": 10000,
+   "nameJa": "スロットル (アカウント×リージョン, HTTP/REST/WebSocket合算)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html",
+   "note": "バースト5,000 (トークンバケット)。一部リージョンは2,500。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/apigw.restTimeout",
+   "serviceId": "apigateway",
+   "service": "API Gateway",
+   "name": "REST API 統合タイムアウト",
+   "value": 29,
+   "unit": "秒",
+   "adjustable": null,
+   "adjustableNote": "サポートへの相談で引き上げ可能 (Service Quotasでは申請不可)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-execution-service-limits-table.html",
+   "note": "Regional/Privateは引き上げ可 (スロットル値の引き下げを伴う場合あり)。Edge最適化は不可。",
+   "scope": "API"
+  },
+  {
+   "id": "curated/apigw.httpTimeout",
+   "serviceId": "apigateway",
+   "service": "API Gateway",
+   "name": "HTTP API 統合タイムアウト",
+   "value": 30,
+   "unit": "秒",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-quotas.html",
+   "scope": "API"
+  },
+  {
+   "id": "curated/apigw.payload",
+   "serviceId": "apigateway",
+   "service": "API Gateway",
+   "name": "ペイロードサイズ",
+   "value": 10240,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-quotas.html",
+   "scope": "リクエスト"
+  },
+  {
+   "id": "curated/sqs.messageSize",
+   "serviceId": "sqs-service",
+   "service": "SQS",
+   "name": "メッセージサイズ上限",
+   "value": 1024,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html",
+   "note": "1 MiB超は拡張クライアントライブラリ (S3退避)。",
+   "scope": "メッセージ"
+  },
+  {
+   "id": "curated/sfn.payload",
+   "serviceId": "step-functions",
+   "service": "Step Functions",
+   "name": "入出力サイズ上限",
+   "value": 256,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/step-functions/latest/dg/service-quotas.html",
+   "scope": "タスク/状態/実行"
+  },
+  {
+   "id": "curated/sfn.expressStart",
+   "annotates": "step-functions/L-7B8A8E4B",
+   "verifiedValue": 6000,
+   "nameJa": "StartExecution (Express)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/step-functions/latest/dg/service-quotas.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/events.putEvents",
+   "annotates": "ev/L-9B653E91",
+   "verifiedValue": 1200,
+   "nameJa": "PutEvents (Classicイベントバス, 東京)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html",
+   "note": "1要求で複数エントリを送れる。本ツールは1イベント=1要求で概算。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/events.invocations",
+   "annotates": "ev/L-5540C5E3",
+   "verifiedValue": 2250,
+   "nameJa": "ルールターゲット呼び出し (Classic, 東京)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html",
+   "note": "超過分は破棄されず遅延する。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/sns.publish",
+   "serviceId": "sns",
+   "service": "SNS",
+   "name": "Publish (標準トピック, 東京)",
+   "value": 1500,
+   "unit": "msg/s",
+   "adjustable": true,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/general/latest/gr/sns.html",
+   "note": "FIFOトピックは3,000 msg/s。",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/sns.messageSize",
+   "serviceId": "sns",
+   "service": "SNS",
+   "name": "メッセージサイズ (既定)",
+   "value": 256,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/general/latest/gr/sns.html",
+   "note": "トピック属性で最大1 MiBまで拡張可能。",
+   "scope": "メッセージ"
+  },
+  {
+   "id": "curated/kinesis.shardWriteMB",
+   "serviceId": "ak",
+   "service": "Kinesis Data Streams",
+   "name": "シャードあたり書き込み",
+   "value": 1,
+   "unit": "MB/s",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html",
+   "scope": "シャード"
+  },
+  {
+   "id": "curated/kinesis.shardWriteRecords",
+   "serviceId": "ak",
+   "service": "Kinesis Data Streams",
+   "name": "シャードあたり書き込みレコード",
+   "value": 1000,
+   "unit": "records/s",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html",
+   "scope": "シャード"
+  },
+  {
+   "id": "curated/kinesis.recordSize",
+   "serviceId": "ak",
+   "service": "Kinesis Data Streams",
+   "name": "レコードサイズ上限",
+   "value": 10240,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html",
+   "scope": "レコード"
+  },
+  {
+   "id": "curated/kms.symmetric",
+   "annotates": "kms/L-6E3AF000",
+   "verifiedValue": 20000,
+   "nameJa": "対称キー暗号オペレーション (東京, 共有)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html",
+   "scope": "アカウント×リージョン"
+  },
+  {
+   "id": "curated/ddb.tableRru",
+   "annotates": "ddb/L-CF0CBE56",
+   "verifiedValue": 40000,
+   "nameJa": "テーブルあたり読み込み (オンデマンド)",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html",
+   "scope": "テーブル"
+  },
+  {
+   "id": "curated/ddb.partitionWcu",
+   "serviceId": "ddb",
+   "service": "DynamoDB",
+   "name": "パーティションあたり書き込み",
+   "value": 1000,
+   "unit": "WCU/s",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html",
+   "scope": "パーティション (キー)"
+  },
+  {
+   "id": "curated/ddb.partitionRcu",
+   "serviceId": "ddb",
+   "service": "DynamoDB",
+   "name": "パーティションあたり読み込み",
+   "value": 3000,
+   "unit": "RCU/s",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html",
+   "scope": "パーティション (キー)"
+  },
+  {
+   "id": "curated/ddb.itemSize",
+   "serviceId": "ddb",
+   "service": "DynamoDB",
+   "name": "項目サイズ上限",
+   "value": 400,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Constraints.html",
+   "scope": "項目"
+  },
+  {
+   "id": "curated/s3.singlePut",
+   "serviceId": "s3",
+   "service": "S3",
+   "name": "単一PUTのオブジェクトサイズ",
+   "value": 5242880,
+   "unit": "KB",
+   "adjustable": false,
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html",
+   "note": "5GB超はマルチパートアップロードが必要 (最大5TB)。",
+   "scope": "オブジェクト"
+  },
+  {
+   "id": "curated/ec2.vcpuStandard",
+   "annotates": "ec2-service/L-1216C47A",
+   "verifiedValue": 5,
+   "nameJa": "Running On-Demand Standard (A,C,D,H,I,M,R,T,Z) vCPU",
+   "verifiedAt": "2026-10-17",
+   "source": "https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-quotas.html",
+   "note": "ドキュメント記載の既定値。実アカウントの適用値は要確認。",
+   "scope": "アカウント×リージョン"
+  }
+ ]
+}
